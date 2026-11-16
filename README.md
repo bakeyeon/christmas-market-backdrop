@@ -43,7 +43,7 @@ In the desktop app: click **+** next to the prompt box → **Plugins** → **Add
 | `svg/convbyadobe.svg` | The full drawing traced to SVG with Adobe's online converter, for reference |
 | `tools/to_dots.py` | Turns any picture into a braille-dot backdrop scene |
 | `tools/to_lineart.py` | Turns any picture into a Canny line-art backdrop scene |
-| `tools/to_dots_orange_purple.py` | Dot SVG in the orange-to-purple palette, keeping the picture's aspect |
+| `tools/to_dots_orange_purple.py` | Dot SVG in the orange-to-purple palette, keeping the picture's aspect; puts dots only along the drawn strokes instead of dithering (pass `dither` for the old look) |
 | `tools/to_lineart_orange_purple.py` | Line-art SVG in the orange-to-purple palette; traces the centre of each stroke instead of Canny edges, which suits dense line drawings |
 
 ## Orange-to-purple versions

@@ -1,8 +1,9 @@
 """Picture -> braille-dot SVG: yellow-to-orange dots over an orange-to-purple gradient sky,
-twinkling points on the brightest spots, falling snow. A variant of to_dots.py that keeps the picture's own aspect.
-Needs: pip install pillow
+twinkling points on the brightest spots, falling snow. A variant of to_dots.py that keeps the picture's own aspect and, by
+default, puts dots only along the drawn strokes (one dot wide) instead of dithering, so dense drawings stay clean.
 
-Usage:  python to_dots_orange_purple.py <picture> <out.svg> [cols] [rows]
+Usage:  python to_dots_orange_purple.py <picture> <out.svg> [cols=656] [rows=140] [style=lines|dither] [line_cover=.22]
+Needs:  pip install pillow (and opencv-python numpy for style=lines)
 """
 import sys, random
 from PIL import Image, ImageFilter
@@ -16,11 +17,48 @@ COLS = int(sys.argv[3]) if len(sys.argv) > 3 else 656
 ROWS = int(sys.argv[4]) if len(sys.argv) > 4 else round(H / (720 / 158))
 cw, lh = W / COLS, H / ROWS
 
-g = im.convert('L')
-g = g.point(lambda v: 0 if v < 34 else min(255, int(((v - 34) / 190) ** .8 * 255)))
-g = g.filter(ImageFilter.UnsharpMask(radius=2, percent=120, threshold=2))
-dots = g.resize((COLS * 2, ROWS * 4), Image.LANCZOS).convert('1')  # Floyd-Steinberg dither
-px = dots.load()
+STYLE = sys.argv[5] if len(sys.argv) > 5 else 'lines'
+if STYLE == 'dither':
+    g = im.convert('L')
+    g = g.point(lambda v: 0 if v < 34 else min(255, int(((v - 34) / 190) ** .8 * 255)))
+    g = g.filter(ImageFilter.UnsharpMask(radius=2, percent=120, threshold=2))
+    dots = g.resize((COLS * 2, ROWS * 4), Image.LANCZOS).convert('1')  # Floyd-Steinberg dither
+    px = dots.load()
+else:
+    # 'lines': dots only along the drawn strokes, one dot wide, so the sky and fills stay clean.
+    # Pick out the bright strokes (brighter than their surroundings), shrink to the dot grid, thin to centre lines.
+    import numpy as np, cv2
+    gray = np.asarray(im.convert('L'))
+    big = cv2.resize(gray, (gray.shape[1] * 2, gray.shape[0] * 2), interpolation=cv2.INTER_CUBIC).astype(int)
+    local = cv2.GaussianBlur(big.astype(np.uint8), (0, 0), 6).astype(int)
+    stroke = ((big > local + 10) & (big > 50)).astype(np.float32)
+    cover = cv2.resize(stroke, (COLS * 2, ROWS * 4), interpolation=cv2.INTER_AREA)
+    mask = (cover > float(sys.argv[6]) if len(sys.argv) > 6 else cover > .22).astype(np.uint8)
+
+    def thin(img):  # Zhang-Suen thinning
+        img = img.copy()
+        while True:
+            changed = False
+            for step in (0, 1):
+                P = np.pad(img, 1)
+                p2, p3, p4, p5 = P[:-2, 1:-1], P[:-2, 2:], P[1:-1, 2:], P[2:, 2:]
+                p6, p7, p8, p9 = P[2:, 1:-1], P[2:, :-2], P[1:-1, :-2], P[:-2, :-2]
+                nb = [p2, p3, p4, p5, p6, p7, p8, p9]
+                B = sum(n.astype(int) for n in nb)
+                A = sum(((nb[i] == 0) & (nb[(i + 1) % 8] == 1)).astype(int) for i in range(8))
+                c = (p2 * p4 * p6 == 0) & (p4 * p6 * p8 == 0) if step == 0 else (p2 * p4 * p8 == 0) & (p2 * p6 * p8 == 0)
+                rm = (img == 1) & (B >= 2) & (B <= 6) & (A == 1) & c
+                if rm.any():
+                    img[rm] = 0; changed = True
+            if not changed:
+                return img
+
+    sk = thin(mask)
+    # drop isolated specks (a lone dot reads as noise, not as a line)
+    n, lab, stats, _ = cv2.connectedComponentsWithStats(sk, connectivity=8)
+    keep = np.zeros(n, bool); keep[1:] = stats[1:, cv2.CC_STAT_AREA] >= 3
+    sk = keep[lab]
+    px = sk.T  # px[x, y], same indexing as the dithered image
 BITS = [((0, 0), 0x01), ((0, 1), 0x02), ((0, 2), 0x04), ((1, 0), 0x08), ((1, 1), 0x10), ((1, 2), 0x20), ((0, 3), 0x40), ((1, 3), 0x80)]
 rows = []
 for r in range(ROWS):
