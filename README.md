@@ -38,9 +38,29 @@ In the desktop app: click **+** next to the prompt box → **Plugins** → **Add
 | `svg/christmas-market-dots-sunset.svg` | The backdrop the mod shows, as a standalone animated SVG: orange-to-yellow dots over a navy-to-sunset sky (open it in a browser) |
 | `svg/christmas-market-dots-navy.svg` | The earlier version: white dots over a navy-to-violet sky |
 | `svg/christmas-market-lineart.svg` | A white line-art version of the same drawing |
+| `svg/christmas-market-dots-orange-purple.svg` | Yellow-to-orange dots over an orange-to-purple sky, from a wider 21:9 drawing of the market |
+| `svg/christmas-market-lineart-orange-purple.svg` | The same 21:9 drawing as yellow-to-orange line art over the orange-to-purple sky |
 | `svg/convbyadobe.svg` | The full drawing traced to SVG with Adobe's online converter, for reference |
 | `tools/to_dots.py` | Turns any picture into a braille-dot backdrop scene |
 | `tools/to_lineart.py` | Turns any picture into a Canny line-art backdrop scene |
+| `tools/to_dots_orange_purple.py` | Dot SVG in the orange-to-purple palette, keeping the picture's aspect |
+| `tools/to_lineart_orange_purple.py` | Line-art SVG in the orange-to-purple palette; traces the centre of each stroke instead of Canny edges, which suits dense line drawings |
+
+## Orange-to-purple versions
+
+A wider (21:9) drawing of the market in yellow-to-orange over an orange-to-purple sky, as dots and as line art. Both are under the backdrop size limit.
+
+<p align="center">
+  <img src="svg/christmas-market-dots-orange-purple.svg" alt="The Christmas market in yellow-to-orange braille dots over a purple-to-orange sky" width="100%">
+</p>
+<p align="center">
+  <img src="svg/christmas-market-lineart-orange-purple.svg" alt="The Christmas market in yellow-to-orange line art over a purple-to-orange sky" width="100%">
+</p>
+
+```bash
+python tools/to_dots_orange_purple.py picture.jpg dots.svg
+python tools/to_lineart_orange_purple.py picture.jpg lineart.svg
+```
 
 ## Make your own backdrop
 
