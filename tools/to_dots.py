@@ -35,7 +35,7 @@ for r in range(ROWS):
                 b |= bit
         line.append(chr(0x2800 + b))
     rows.append(''.join(line).rstrip('⠀'))
-text = ''.join(f'<text y="{(i + 1) * lh:.2f}" textLength="{len(ln) * cw:.1f}">{ln}</text>' for i, ln in enumerate(rows) if ln)
+text = ''.join(f'<text class="g{random.randrange(3)}" y="{(i + 1) * lh:.2f}" textLength="{len(ln) * cw:.1f}">{ln}</text>' for i, ln in enumerate(rows) if ln)
 
 # twinkle points: the brightest small spots of the drawing
 sm = im.convert('L').resize((320, 180), Image.LANCZOS)
@@ -62,15 +62,15 @@ for layer, (lo, hi) in enumerate([(16, 24), (11, 16), (8, 11)]):
 for k in range(4):
     tcss += f'.w{k}{{animation:sway {2.5 + k * .8:.1f}s ease-in-out infinite;animation-delay:-{k * .9:.1f}s}}'
 
-css = ("text{font-family:'Segoe UI Symbol','DejaVu Sans','Apple Symbols',monospace;font-size:%.2fpx;fill:#eef0f8;white-space:pre}" % (lh * 1.0) +
+css = ("text{font-family:'Segoe UI Symbol','DejaVu Sans','Apple Symbols',monospace;font-size:%.2fpx;white-space:pre}.g0{fill:url(#d0)}.g1{fill:url(#d1)}.g2{fill:url(#d2)}" % (lh * 1.0) +
        "@keyframes tw{0%,100%{opacity:.1}50%{opacity:1}}.t0{animation:tw 1.6s ease-in-out infinite}.t1{animation:tw 2.3s ease-in-out infinite -.8s}"
        ".t2{animation:tw 2.9s ease-in-out infinite -1.5s}.t3{animation:tw 2s ease-in-out infinite -.4s}"
        "@keyframes fall{from{transform:translateY(-40px)}to{transform:translateY(780px)}}@keyframes sway{0%,100%{transform:translateX(-10px)}50%{transform:translateX(10px)}}" + tcss)
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" preserveAspectRatio="xMidYMid slice"><style>{css}</style>'
        '<defs><filter id="bl" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2" result="b"/>'
-       '<feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#090d24"/><stop offset=".45" stop-color="#151a3d"/><stop offset=".7" stop-color="#231d4a"/><stop offset="1" stop-color="#1a1636"/></linearGradient><radialGradient id="hz" cx=".5" cy=".62" r=".6"><stop offset="0" stop-color="#3a2d6e" stop-opacity=".55"/><stop offset="1" stop-color="#3a2d6e" stop-opacity="0"/></radialGradient></defs>'
-       f'<rect width="{W}" height="{H}" fill="url(#bg)"/><rect width="{W}" height="{H}" fill="url(#hz)"/><g lengthAdjust="spacingAndGlyphs">{text}</g>'
-       f'<g fill="#fff4d6" filter="url(#bl)">{tw}</g><g fill="#fff" opacity=".85">{snow}</g></svg>')
+       '<feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#070c26"/><stop offset=".3" stop-color="#132459"/><stop offset=".55" stop-color="#2c3a82"/><stop offset=".74" stop-color="#5c4a92"/><stop offset=".88" stop-color="#7a4a6a"/><stop offset="1" stop-color="#8f4a2e"/></linearGradient><linearGradient id="d0" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="170" y2="50" spreadMethod="reflect"><stop offset="0" stop-color="#ff9a3c"/><stop offset=".5" stop-color="#ffc35c"/><stop offset="1" stop-color="#ffe9a3"/></linearGradient><linearGradient id="d1" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="-120" y2="90" spreadMethod="reflect"><stop offset="0" stop-color="#ffe08a"/><stop offset=".55" stop-color="#ffb04a"/><stop offset="1" stop-color="#ff8f3a"/></linearGradient><linearGradient id="d2" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="240" y2="-40" spreadMethod="reflect"><stop offset="0" stop-color="#ffd27a"/><stop offset=".5" stop-color="#fff0b8"/><stop offset="1" stop-color="#ffa64d"/></linearGradient></defs>'
+       f'<rect width="{W}" height="{H}" fill="url(#bg)"/><g lengthAdjust="spacingAndGlyphs">{text}</g>'
+       f'<g fill="#ffe7a8" filter="url(#bl)">{tw}</g><g fill="#fff" opacity=".85">{snow}</g></svg>')
 # lengthAdjust must sit on each <text>; add it via a CSS-free attribute rewrite
 svg = svg.replace('<text y=', '<text lengthAdjust="spacingAndGlyphs" y=')
 print(len(svg), 'rows', len(rows), 'twinkles', len(pts))
