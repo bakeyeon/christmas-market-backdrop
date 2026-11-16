@@ -29,7 +29,8 @@ In the desktop app: click **+** next to the prompt box → **Plugins** → **Add
 | Path | What it is |
 | --- | --- |
 | `hooks/` | The mod: sets the backdrop and palette (`register.tsx`), the scene (`scene.js`) |
-| `svg/christmas-market-dots.svg` | The backdrop as a standalone animated SVG (open it in a browser) |
+| `svg/christmas-market-dots-sunset.svg` | The backdrop the mod shows, as a standalone animated SVG: orange-to-yellow dots over a navy-to-sunset sky (open it in a browser) |
+| `svg/christmas-market-dots-navy.svg` | The earlier version: white dots over a navy-to-violet sky |
 | `svg/christmas-market-lineart.svg` | A white line-art version of the same drawing |
 | `svg/convbyadobe.svg` | The full drawing traced to SVG with Adobe's online converter, for reference |
 | `tools/to_dots.py` | Turns any picture into a braille-dot backdrop scene |
