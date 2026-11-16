@@ -4,6 +4,8 @@ A Claude Code mod that puts a twinkling Christmas market behind the conversation
 
 ## Install
 
+Requires the latest version of Claude Code (mods are only supported in recent versions; run `claude update` first if you're not sure).
+
 At the prompt of a Claude Code terminal session:
 
 ```
