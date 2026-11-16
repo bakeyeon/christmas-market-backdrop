@@ -1,0 +1,55 @@
+# Christmas Market Backdrop 🎄
+
+A Claude Code mod that puts a twinkling Christmas market behind the conversation in the desktop app: a town square drawn in white braille dots on navy, with lights twinkling on the tree, the Ferris wheel and the garlands, falling snow, and a matching navy night palette.
+
+## Install
+
+At the prompt of a Claude Code terminal session:
+
+```
+/plugin install christmas-market --marketplace bakeyeon/christmas-market-backdrop
+```
+
+Answer `y` to add the marketplace, then press Enter to install for your user. New sessions in the desktop app show the backdrop.
+
+From a shell:
+
+```bash
+claude plugin install christmas-market --marketplace bakeyeon/christmas-market-backdrop
+```
+
+In the desktop app: click **+** next to the prompt box → **Plugins** → **Add marketplace** with `bakeyeon/christmas-market-backdrop` → **Add plugin**.
+
+> The backdrop draws in the desktop and mobile apps; a plain terminal shows no backdrop. The app pauses backdrop animation after a while, so the lights and snow move when a session opens and then rest as a still picture.
+
+## What's inside
+
+| Path | What it is |
+| --- | --- |
+| `hooks/` | The mod: sets the backdrop and palette (`register.tsx`), the scene (`scene.js`) |
+| `svg/christmas-market-dots.svg` | The backdrop as a standalone animated SVG (open it in a browser) |
+| `svg/christmas-market-lineart.svg` | A white line-art version of the same drawing |
+| `tools/to_dots.py` | Turns any picture into a braille-dot backdrop scene |
+| `tools/to_lineart.py` | Turns any picture into a Canny line-art backdrop scene |
+
+## Make your own backdrop
+
+Backdrop scenes must stay under 131,072 characters and can't embed images, so the tools redraw a picture as text dots or simplified lines.
+
+```bash
+pip install pillow
+python tools/to_dots.py picture.png hooks/scene.js preview.svg
+```
+
+```bash
+pip install opencv-python numpy
+python tools/to_lineart.py picture.png hooks/scene.js preview.svg
+```
+
+Both write `scene.js` (what the mod shows) and an SVG to preview in a browser. To start from an SVG, render it to PNG first, for example with headless Chrome:
+
+```bash
+chrome --headless=new --hide-scrollbars --window-size=2400,1792 --screenshot=picture.png file:///path/to/drawing.svg
+```
+
+The market drawing was generated with Gemini and converted with these tools.

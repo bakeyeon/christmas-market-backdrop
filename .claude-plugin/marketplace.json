@@ -1,0 +1,5 @@
+{
+  "name": "christmas-market-backdrop",
+  "owner": { "name": "bakeyeon" },
+  "plugins": [{ "name": "christmas-market", "source": "./" }]
+}
