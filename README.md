@@ -29,12 +29,13 @@ In the desktop app: click **+** next to the prompt box → **Plugins** → **Add
 | `hooks/` | The mod: sets the backdrop and palette (`register.tsx`), the scene (`scene.js`) |
 | `svg/christmas-market-dots.svg` | The backdrop as a standalone animated SVG (open it in a browser) |
 | `svg/christmas-market-lineart.svg` | A white line-art version of the same drawing |
+| `svg/convbyadobe.svg` | The full drawing traced to SVG with Adobe's online converter, for reference |
 | `tools/to_dots.py` | Turns any picture into a braille-dot backdrop scene |
 | `tools/to_lineart.py` | Turns any picture into a Canny line-art backdrop scene |
 
 ## Make your own backdrop
 
-Backdrop scenes must stay under 131,072 characters and can't embed images, so the tools redraw a picture as text dots or simplified lines.
+Backdrop scenes must stay under 131,072 characters and can't embed images, so the tools redraw a picture as text dots or simplified lines. (`svg/convbyadobe.svg`, traced with Adobe's converter, is about 8 million characters, too large to use as a backdrop directly; the dot version was made from it.)
 
 ```bash
 pip install pillow
@@ -53,3 +54,7 @@ chrome --headless=new --hide-scrollbars --window-size=2400,1792 --screenshot=pic
 ```
 
 The market drawing was generated with Gemini and converted with these tools.
+
+## License
+
+MIT, see [LICENSE](LICENSE).
