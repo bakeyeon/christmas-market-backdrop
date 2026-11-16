@@ -55,6 +55,18 @@ chrome --headless=new --hide-scrollbars --window-size=2400,1792 --screenshot=pic
 
 The market drawing was generated with Gemini and converted with these tools.
 
+## Image prompt
+
+The prompt used to generate the market drawing, if you want to make your own variation:
+
+```text
+A panoramic, wide-angle cinematic view of a bustling European Christmas market at night, fully rendered in intricate, detailed white line art on a dark navy and deep violet background. A high-angle, birds-eye perspective looking down upon a vast festive square packed with hundreds of crowded wooden market stalls with decorated roofs, a majestic heavily decorated towering Christmas tree, and a giant glowing Ferris wheel.
+
+The square is enclosed by a sprawling array of magnificent historical European architecture, grand cathedral-like churches, ornate clock towers, and half-timbered buildings, all densely packed together. Innumerable festive details fill the scene: endless cascading strings of fairy lights, garlands, wreaths on facades, and tiny merchandise in shop windows.
+
+Dense crowds of tiny people gather in the plazas, walkways, and seating areas. The deep night sky is heavily speckled with countless twinkling stars, faint cosmic dust, and a gentle dusting of falling snow. Every single element, from the distant spires to the bustling crowds and ornaments, is entirely and meticulously drawn with fine, sparkling white lines, capturing a dense, magical, and festive holiday atmosphere. --ar 21:9
+```
+
 ## License
 
 MIT, see [LICENSE](LICENSE).
