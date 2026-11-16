@@ -68,8 +68,8 @@ css = ("text{font-family:'Segoe UI Symbol','DejaVu Sans','Apple Symbols',monospa
        "@keyframes fall{from{transform:translateY(-40px)}to{transform:translateY(780px)}}@keyframes sway{0%,100%{transform:translateX(-10px)}50%{transform:translateX(10px)}}" + tcss)
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" preserveAspectRatio="xMidYMid slice"><style>{css}</style>'
        '<defs><filter id="bl" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2" result="b"/>'
-       '<feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>'
-       f'<rect width="{W}" height="{H}" fill="#101420"/><g lengthAdjust="spacingAndGlyphs">{text}</g>'
+       '<feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#090d24"/><stop offset=".45" stop-color="#151a3d"/><stop offset=".7" stop-color="#231d4a"/><stop offset="1" stop-color="#1a1636"/></linearGradient><radialGradient id="hz" cx=".5" cy=".62" r=".6"><stop offset="0" stop-color="#3a2d6e" stop-opacity=".55"/><stop offset="1" stop-color="#3a2d6e" stop-opacity="0"/></radialGradient></defs>'
+       f'<rect width="{W}" height="{H}" fill="url(#bg)"/><rect width="{W}" height="{H}" fill="url(#hz)"/><g lengthAdjust="spacingAndGlyphs">{text}</g>'
        f'<g fill="#fff4d6" filter="url(#bl)">{tw}</g><g fill="#fff" opacity=".85">{snow}</g></svg>')
 # lengthAdjust must sit on each <text>; add it via a CSS-free attribute rewrite
 svg = svg.replace('<text y=', '<text lengthAdjust="spacingAndGlyphs" y=')
