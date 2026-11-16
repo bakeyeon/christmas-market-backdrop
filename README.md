@@ -2,6 +2,8 @@
 
 A Claude Code mod that puts a twinkling Christmas market behind the conversation in the desktop app: a town square drawn in orange-to-yellow braille dots over a navy-to-sunset sky, with lights twinkling on the tree, the Ferris wheel and the garlands, falling snow, and a matching navy night palette.
 
+A *backdrop* is a picture or animated scene a mod can draw behind the conversation in the Claude Code desktop and mobile apps. See [Put a backdrop behind the conversation](https://code.claude.com/docs/en/plugins/mods/interface#put-a-backdrop-behind-the-conversation) in the Claude Code docs.
+
 <p align="center">
   <img src="svg/christmas-market-dots-sunset.svg" alt="A dot-art Christmas market square in orange-to-yellow dots over a navy-to-sunset sky, with twinkling lights and falling snow" width="100%">
 </p>
