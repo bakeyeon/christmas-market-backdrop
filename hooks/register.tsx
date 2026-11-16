@@ -3,7 +3,7 @@ import type { Register, ThemeSetArgs } from 'claude-code'
 import { makeColors } from './make-colors.js'
 import { SCENE } from './scene.js'
 
-// Night market: deep navy surfaces with white text, to sit with the white-on-navy line drawing.
+// Night market: deep navy surfaces with white text, to sit with the navy top of the sunset sky.
 const { theme, problems } = makeColors({
   label: 'Market night',
   only: 'dark',
@@ -62,7 +62,7 @@ export const register: Register = on => {
     return (
       <Svg
         source={SCENE}
-        alt="A dot-art Christmas market square drawn in white on navy, with lights twinkling on the tree, the Ferris wheel and the garlands, and falling snow"
+        alt="A dot-art Christmas market square drawn in orange-to-yellow dots over a navy-to-sunset sky, with lights twinkling on the tree, the Ferris wheel and the garlands, and falling snow"
         isInteractive
       />
     )

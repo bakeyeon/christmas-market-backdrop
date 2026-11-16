@@ -2,6 +2,10 @@
 
 A Claude Code mod that puts a twinkling Christmas market behind the conversation in the desktop app: a town square drawn in orange-to-yellow braille dots over a navy-to-sunset sky, with lights twinkling on the tree, the Ferris wheel and the garlands, falling snow, and a matching navy night palette.
 
+<p align="center">
+  <img src="svg/christmas-market-dots-sunset.svg" alt="A dot-art Christmas market square in orange-to-yellow dots over a navy-to-sunset sky, with twinkling lights and falling snow" width="100%">
+</p>
+
 ## Install
 
 Requires the latest version of Claude Code (mods are only supported in recent versions; run `claude update` first if you're not sure).

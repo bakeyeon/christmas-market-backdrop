@@ -1,4 +1,4 @@
-"""Turn a picture into a braille-dot backdrop scene: dithered white dots on navy, twinkling points on its
+"""Turn a picture into a braille-dot backdrop scene: dithered orange-to-yellow dots over a navy-to-sunset sky, twinkling points on its
 brightest spots, and falling snow. Fits the Claude Code backdrop's 131,072-character limit.
 
 Usage:  python to_dots.py <picture.png> <out_scene.js> <out.svg> [cols=560] [rows=158]
